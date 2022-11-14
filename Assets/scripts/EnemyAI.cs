@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
 {
-    private enum State { patrol, chase}
-    private State currentState;
-    [SerializeField] private float alertRadius;
-    private Transform playerTransform;
-    [SerializeField] private float patrolSpeed;
-    [SerializeField] private float chaseSpeed;
-    [SerializeField] private Transform[] checkpoints;
-    private int nextCheckpointIndex = 0;
+    protected enum State { patrol, chase, shooting}
+    protected State currentState;
+    [SerializeField] protected float alertRadius;
+    protected Transform playerTransform;
+    [SerializeField] protected float patrolSpeed;
+    [SerializeField] protected float chaseSpeed;
+    [SerializeField] protected Transform[] checkpoints;
+    protected int nextCheckpointIndex = 0;
 
     private void Start()
     {
@@ -19,7 +19,7 @@ public class EnemyAI : MonoBehaviour
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         if (currentState == State.chase)
         {
@@ -36,7 +36,7 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    private void Move(Vector2 targetPosition, float speed)
+    protected void Move(Vector2 targetPosition, float speed)
     {
         float distance = Vector2.Distance(transform.position, targetPosition);
         float interpolant = (speed * Time.deltaTime) / distance;
