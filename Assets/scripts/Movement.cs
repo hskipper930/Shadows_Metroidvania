@@ -10,6 +10,8 @@ public class Movement : MonoBehaviour
     [SerializeField] private bool isFacingRight = true;
     public bool canJump = false;
 
+    public Transform firePoint;
+    public GameObject axePrefab;
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
@@ -57,8 +59,16 @@ public class Movement : MonoBehaviour
         }
     }
 
+    void Attack()
+    {
+        Instantiate(axePrefab, firePoint.position, firePoint.rotation);
+    }
     private void FixedUpdate()
     {
+        if(Input.GetButtonDown("Fire1"))
+        {
+            Attack();
+        }
         if(IsGrounded())
         {
             rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
