@@ -679,6 +679,8 @@ MonoBehaviour:
   jumpTime: 0
   playerHealth: 30
   axeActive: 1
+  axePower: 200
+  activeWeapon: 1
 --- !u!50 &1553426265
 Rigidbody2D:
   serializedVersion: 4

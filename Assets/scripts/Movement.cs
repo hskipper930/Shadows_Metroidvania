@@ -10,6 +10,7 @@ public class Movement : MonoBehaviour
     private float jumpPower = 5f;
     [SerializeField] private bool isFacingRight = true;
     public bool canJump = false;
+    public bool candoubleJump = false;
 
     public Transform firePoint;
     public GameObject axePrefab;
@@ -64,6 +65,11 @@ public class Movement : MonoBehaviour
         if (Input.GetButtonDown("Jump") && IsGrounded() && canJump == true)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpPower);
+        }
+        else if(candoubleJump)//for later!
+        { candoubleJump = false;
+            rb.velocity = new Vector2(rb.velocity.x, 0);
+            rb.AddForce(new Vector2(0, jumpPower));
         }
 
         /*if (Input.GetButtonUp("Jump") && rb.velocity.y > 0f)
