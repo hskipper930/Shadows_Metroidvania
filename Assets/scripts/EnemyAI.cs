@@ -12,7 +12,7 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] protected float chaseSpeed;
     [SerializeField] protected Transform[] checkpoints;
     protected int nextCheckpointIndex = 0;
-    private Animator animator;
+    protected Animator animator;
 
     private void Start()
     {
