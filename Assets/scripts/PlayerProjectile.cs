@@ -7,6 +7,7 @@ public class PlayerProjectile : MonoBehaviour
     // Start is called before the first frame update
     public float speed = 20f;
     public Rigidbody2D rb;
+    public Movement player;
     void Start()
     {
         rb.velocity = transform.right * speed;
@@ -15,6 +16,7 @@ public class PlayerProjectile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Object.Destroy(gameObject, .7f);
+        Object.Destroy(gameObject, 1f);
     }
+   
 }
