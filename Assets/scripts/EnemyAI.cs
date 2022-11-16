@@ -12,10 +12,12 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] protected float chaseSpeed;
     [SerializeField] protected Transform[] checkpoints;
     protected int nextCheckpointIndex = 0;
+    private Animator animator;
 
     private void Start()
     {
         currentState = State.patrol;
+        animator = GetComponent<Animator>();
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
@@ -23,11 +25,13 @@ public class EnemyAI : MonoBehaviour
     {
         if (currentState == State.chase)
         {
+            animator.SetFloat("Speed", chaseSpeed);
             Move(playerTransform.position, chaseSpeed);
         }
 
         if(currentState == State.patrol)
         {
+            animator.SetFloat("Speed", patrolSpeed);
             Move(checkpoints[nextCheckpointIndex].position, patrolSpeed);
             if(Vector2.Distance(transform.position, playerTransform.position) <= alertRadius)
             {
@@ -38,6 +42,14 @@ public class EnemyAI : MonoBehaviour
 
     protected void Move(Vector2 targetPosition, float speed)
     {
+        if(targetPosition.x < transform.position.x)
+        {
+            animator.SetFloat("Horizontal", -1);
+        }
+        else
+        {
+            animator.SetFloat("Horizontal", 1);
+        }
         float distance = Vector2.Distance(transform.position, targetPosition);
         float interpolant = (speed * Time.deltaTime) / distance;
         transform.position = Vector2.Lerp(transform.position, targetPosition, interpolant);
