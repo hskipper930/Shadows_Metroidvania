@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
+    public int numLogs = 0;
     [SerializeField] private float horizontal;
     private float speed = 8f;
-    private float jumpPower = 16f;
+    private float jumpPower = 5f;
     [SerializeField] private bool isFacingRight = true;
     public bool canJump = false;
 
@@ -31,17 +32,29 @@ public class Movement : MonoBehaviour
 
     [SerializeField] RaycastHit2D wallCheckHit;
     [SerializeField] private float jumpTime;
-    float mx = 0f;
+
+    public int playerHealth = 30;
+    public bool axeActive = true;
+    public float axePower = 200f;
+    public int activeWeapon = 1;
     void Start()
     {
         wallJumpAngle.Normalize();
     }
 
     
-    void Update()
+   
+
+    
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-       
-        Flip();
+        if (collision.gameObject.CompareTag("Boots"))
+        {
+            canJump = true;
+            Debug.Log("You can jump now");
+            Destroy(collision.gameObject);
+        }
+        
     }
 
     void Jump()
@@ -53,19 +66,30 @@ public class Movement : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, jumpPower);
         }
 
-        if (Input.GetButtonUp("Jump") && rb.velocity.y > 0f)
+        /*if (Input.GetButtonUp("Jump") && rb.velocity.y > 0f)
         {
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
-        }
+        }*/
     }
 
     void Attack()
     {
-        Instantiate(axePrefab, firePoint.position, firePoint.rotation);
+        
+        switch(activeWeapon)//going to add weapons to switch to in the future.
+            { 
+            case 1:     //axe
+                if (axeActive == true)
+                {
+                    Instantiate(axePrefab, firePoint.position, firePoint.rotation);
+
+                }
+                break;
+        }
     }
-    private void FixedUpdate()
+    private void Update()
     {
-        if(Input.GetButtonDown("Fire1"))
+        Flip();
+        if (Input.GetKeyDown(KeyCode.E))
         {
             Attack();
         }
@@ -76,7 +100,7 @@ public class Movement : MonoBehaviour
         Jump();
         WallSlide();
 
-        WallJump();
+        //WallJump();
     }
     [SerializeField] private bool IsGrounded()
     {
