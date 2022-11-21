@@ -41,7 +41,15 @@ public class EnemyAI : MonoBehaviour
     protected void Move(Vector2 targetPosition, float speed)
     {
         animator.SetFloat("Speed", speed);
-        if(targetPosition.x < transform.position.x)
+        SetHorizontalAnimationParameter(targetPosition);
+        float distance = Vector2.Distance(transform.position, targetPosition);
+        float interpolant = (speed * Time.deltaTime) / distance;
+        transform.position = Vector2.Lerp(transform.position, targetPosition, interpolant);
+    }
+
+    protected void SetHorizontalAnimationParameter(Vector2 targetPosition)
+    {
+        if (targetPosition.x < transform.position.x)
         {
             animator.SetFloat("Horizontal", -1);
         }
@@ -49,9 +57,6 @@ public class EnemyAI : MonoBehaviour
         {
             animator.SetFloat("Horizontal", 1);
         }
-        float distance = Vector2.Distance(transform.position, targetPosition);
-        float interpolant = (speed * Time.deltaTime) / distance;
-        transform.position = Vector2.Lerp(transform.position, targetPosition, interpolant);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

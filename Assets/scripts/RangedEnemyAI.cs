@@ -59,6 +59,7 @@ public class RangedEnemyAI : EnemyAI
 
     private IEnumerator Shoot()
     {
+        SetHorizontalAnimationParameter(playerTransform.position);
         WaitForSeconds cooldown = new WaitForSeconds(shootCooldown);
         for (; ; )
         {
