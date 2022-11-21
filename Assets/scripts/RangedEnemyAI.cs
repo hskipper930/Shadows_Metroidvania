@@ -6,6 +6,13 @@ public class RangedEnemyAI : EnemyAI
 {
     [SerializeField] private GameObject projectile;
     [SerializeField] private float shootCooldown;
+
+    protected override void Start()
+    {
+        base.Start();
+        animator.SetBool("attacking", false);
+    }
+
     protected override void Update()
     {
         if (currentState == State.chase)
@@ -25,6 +32,7 @@ public class RangedEnemyAI : EnemyAI
             else
             {
                 currentState = State.shooting;
+                animator.SetBool("attacking", true);
                 StartCoroutine("Shoot");
             }
         }
@@ -33,6 +41,7 @@ public class RangedEnemyAI : EnemyAI
             if (Vector2.Distance(transform.position, playerTransform.position) > 15)
             {
                 StopCoroutine("Shoot");
+                animator.SetBool("attacking", false);
                 currentState = State.chase;
             }
         }
@@ -42,6 +51,7 @@ public class RangedEnemyAI : EnemyAI
             if (Vector2.Distance(transform.position, playerTransform.position) <= alertRadius)
             {
                 currentState = State.shooting;
+                animator.SetBool("attacking", true);
                 StartCoroutine("Shoot");
             }
         }

@@ -14,7 +14,7 @@ public class EnemyAI : MonoBehaviour
     protected int nextCheckpointIndex = 0;
     protected Animator animator;
 
-    private void Start()
+    protected virtual void Start()
     {
         currentState = State.patrol;
         animator = GetComponent<Animator>();
@@ -25,13 +25,11 @@ public class EnemyAI : MonoBehaviour
     {
         if (currentState == State.chase)
         {
-            animator.SetFloat("Speed", chaseSpeed);
             Move(playerTransform.position, chaseSpeed);
         }
 
         if(currentState == State.patrol)
         {
-            animator.SetFloat("Speed", patrolSpeed);
             Move(checkpoints[nextCheckpointIndex].position, patrolSpeed);
             if(Vector2.Distance(transform.position, playerTransform.position) <= alertRadius)
             {
@@ -42,6 +40,7 @@ public class EnemyAI : MonoBehaviour
 
     protected void Move(Vector2 targetPosition, float speed)
     {
+        animator.SetFloat("Speed", speed);
         if(targetPosition.x < transform.position.x)
         {
             animator.SetFloat("Horizontal", -1);
