@@ -14,7 +14,7 @@ public class EnemyAI : MonoBehaviour
     protected int nextCheckpointIndex = 0;
     protected Animator animator;
 
-    private void Start()
+    protected virtual void Start()
     {
         currentState = State.patrol;
         animator = GetComponent<Animator>();
@@ -25,13 +25,11 @@ public class EnemyAI : MonoBehaviour
     {
         if (currentState == State.chase)
         {
-            animator.SetFloat("Speed", chaseSpeed);
             Move(playerTransform.position, chaseSpeed);
         }
 
         if(currentState == State.patrol)
         {
-            animator.SetFloat("Speed", patrolSpeed);
             Move(checkpoints[nextCheckpointIndex].position, patrolSpeed);
             if(Vector2.Distance(transform.position, playerTransform.position) <= alertRadius)
             {
@@ -42,7 +40,16 @@ public class EnemyAI : MonoBehaviour
 
     protected void Move(Vector2 targetPosition, float speed)
     {
-        if(targetPosition.x < transform.position.x)
+        animator.SetFloat("Speed", speed);
+        SetHorizontalAnimationParameter(targetPosition);
+        float distance = Vector2.Distance(transform.position, targetPosition);
+        float interpolant = (speed * Time.deltaTime) / distance;
+        transform.position = Vector2.Lerp(transform.position, targetPosition, interpolant);
+    }
+
+    protected void SetHorizontalAnimationParameter(Vector2 targetPosition)
+    {
+        if (targetPosition.x < transform.position.x)
         {
             animator.SetFloat("Horizontal", -1);
         }
@@ -50,9 +57,6 @@ public class EnemyAI : MonoBehaviour
         {
             animator.SetFloat("Horizontal", 1);
         }
-        float distance = Vector2.Distance(transform.position, targetPosition);
-        float interpolant = (speed * Time.deltaTime) / distance;
-        transform.position = Vector2.Lerp(transform.position, targetPosition, interpolant);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

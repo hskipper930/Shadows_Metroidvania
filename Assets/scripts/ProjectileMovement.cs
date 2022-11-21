@@ -13,6 +13,10 @@ public class ProjectileMovement : MonoBehaviour
         float distance = Vector2.Distance(transform.position, targetPosition);
         float interpolant = (speed * Time.deltaTime) / distance;
         transform.position = Vector2.Lerp(transform.position, targetPosition, interpolant);
+        if(Vector2.Distance(transform.position, targetPosition) == 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
