@@ -8,7 +8,7 @@ public class Movement : MonoBehaviour
     [SerializeField] private float horizontal;
     private float speed = 8f;
     private float jumpPower = 5f;
-    [SerializeField] private bool isFacingRight = true;
+    [SerializeField] public bool isFacingRight = true;
     public bool canJump = false;
     public bool candoubleJump = false;
 
@@ -55,6 +55,12 @@ public class Movement : MonoBehaviour
             Debug.Log("You can jump now");
             Destroy(collision.gameObject);
         }
+       /* if(collision.gameObject.CompareTag("Log"))
+        {
+            numLogs++;
+            Debug.Log("Logs picked up: " + numLogs);
+            Destroy(collision.gameObject);
+        }*/
         
     }
 
@@ -64,7 +70,8 @@ public class Movement : MonoBehaviour
 
         if (Input.GetButtonDown("Jump") && IsGrounded() && canJump == true)
         {
-            rb.velocity = new Vector2(rb.velocity.x, jumpPower);
+            //rb.velocity = new Vector2(rb.velocity.x, jumpPower);
+            rb.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
         }
         else if(candoubleJump)//for later!
         { candoubleJump = false;
@@ -86,7 +93,7 @@ public class Movement : MonoBehaviour
             case 1:     //axe
                 if (axeActive == true)
                 {
-                    Instantiate(axePrefab, firePoint.position, firePoint.rotation);
+                    Instantiate(axePrefab, firePoint.position, transform.rotation);
 
                 }
                 break;
@@ -99,10 +106,11 @@ public class Movement : MonoBehaviour
         {
             Attack();
         }
-        if(IsGrounded())
-        {
-            rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
-        }
+        /* if(IsGrounded())
+         {
+             rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
+         }*/
+        rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
         Jump();
         WallSlide();
 

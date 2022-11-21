@@ -5,6 +5,9 @@ using UnityEngine;
 public class Obstacle : MonoBehaviour
 {
     public Movement player;
+    public GameObject logPickup;
+    public Transform pickupSpot;
+
 
     // Start is called before the first frame update
     void Start()
@@ -20,10 +23,13 @@ public class Obstacle : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(this.gameObject.CompareTag("Log")&& collision.gameObject.CompareTag("PlayerAxe"))
+        if(this.gameObject.CompareTag("Tree")&& collision.gameObject.CompareTag("PlayerAxe"))
         {
+
             player.numLogs++;
-            Destroy(gameObject, .5f);
+            Debug.Log("Logs picked up: " + player.numLogs);
+            //Instantiate(logPickup,pickupSpot);
+            Destroy(gameObject, .2f);
 
         }
     }
