@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Tree
+  - PlayerAxe
+  - Boots
+  - Water
+  - RespawnPoint
+  - Ground
   layers:
   - Default
   - TransparentFX
