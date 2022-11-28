@@ -20,4 +20,6 @@ public class GameManager : MonoBehaviour
             firstBridge.SetActive(true);
         }
     }
+
+   
 }

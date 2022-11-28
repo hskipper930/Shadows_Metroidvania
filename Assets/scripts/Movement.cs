@@ -44,6 +44,7 @@ public class Movement : MonoBehaviour
     public bool axeActive = true;
     public float axePower = 200f;
     public int activeWeapon = 1;
+    public bool isSharp = false;
     void Start()
     {
         wallJumpAngle.Normalize();
@@ -79,6 +80,11 @@ public class Movement : MonoBehaviour
         
     }
     
+    public void TakeDamage(int amount)
+    {
+        playerHealth -= amount;
+    }
+
     void Jump()
     {
         horizontal = Input.GetAxisRaw("Horizontal");
