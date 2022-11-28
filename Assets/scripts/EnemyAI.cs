@@ -13,6 +13,8 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] protected Transform[] checkpoints;
     protected int nextCheckpointIndex = 0;
     protected Animator animator;
+    [SerializeField] private int health;
+    [SerializeField] private int damage;
 
     protected virtual void Start()
     {
@@ -71,6 +73,19 @@ public class EnemyAI : MonoBehaviour
             {
                 nextCheckpointIndex++;
             }
+        }
+        if(collision.gameObject.CompareTag("Player"))
+        {
+            //damage player
+        }
+    }
+
+    private void TakeDamage(int amount)
+    {
+        health -= amount;
+        if(health <= 0)
+        {
+            Destroy(gameObject);
         }
     }
 }
