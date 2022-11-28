@@ -7,6 +7,7 @@ public class EnemyAI : MonoBehaviour
     protected enum State { patrol, chase, shooting}
     protected State currentState;
     [SerializeField] protected float alertRadius;
+    private GameObject player;
     protected Transform playerTransform;
     [SerializeField] protected float patrolSpeed;
     [SerializeField] protected float chaseSpeed;
@@ -22,7 +23,8 @@ public class EnemyAI : MonoBehaviour
     {
         currentState = State.patrol;
         animator = GetComponent<Animator>();
-        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        player = GameObject.FindGameObjectWithTag("Player");
+        playerTransform = player.transform;
     }
 
     protected virtual void Update()
@@ -78,7 +80,7 @@ public class EnemyAI : MonoBehaviour
         }
         if(collision.gameObject.CompareTag("Player"))
         {
-            //damage player
+            player.GetComponent<Movement>().TakeDamage(damage);
         }
 
         if(collision.gameObject.CompareTag("PlayerAxe"))
