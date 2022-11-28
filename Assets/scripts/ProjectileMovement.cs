@@ -23,7 +23,7 @@ public class ProjectileMovement : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            //damage player
+            collision.gameObject.GetComponent<Movement>().TakeDamage(damage);
         }
         Destroy(gameObject);
     }
