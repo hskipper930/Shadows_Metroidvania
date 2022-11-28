@@ -16,6 +16,8 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private int health;
     [SerializeField] private int damage;
 
+    public Door door;
+
     protected virtual void Start()
     {
         currentState = State.patrol;
@@ -78,6 +80,19 @@ public class EnemyAI : MonoBehaviour
         {
             //damage player
         }
+
+        if(collision.gameObject.CompareTag("PlayerAxe"))
+        {
+            TakeDamage(2);
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("PlayerAxe"))
+        {
+            TakeDamage(2);
+        }
     }
 
     private void TakeDamage(int amount)
@@ -85,6 +100,8 @@ public class EnemyAI : MonoBehaviour
         health -= amount;
         if(health <= 0)
         {
+            door.numEnemies--;
+            
             Destroy(gameObject);
         }
     }

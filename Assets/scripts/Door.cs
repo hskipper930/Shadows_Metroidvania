@@ -6,7 +6,7 @@ public class Door : MonoBehaviour
 {
     public int numEnemies;
     public GameObject roomTrigger;
-    public bool roomClear = false;
+    public bool roomClear = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,26 +16,28 @@ public class Door : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(roomClear == false)
+         
+       
+    }
+    public void roomCheck()
+    {
+
+        if (roomClear == false)
         {
             transform.position += new Vector3(0, 10);
         }
-        if(numEnemies<=0)
-        {
-            roomClear = true;
-        }    
-        if(roomClear == true)
+        if (roomClear == true)
         {
             transform.position -= new Vector3(0, 10);
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+   /* private void OnTriggerEnter2D(Collider2D collision)
     {
      if(collision.gameObject.CompareTag("Player"))
         {
             roomClear = false;
             Destroy(roomTrigger);
         }
-    }
+    }*/
 }
