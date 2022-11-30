@@ -6,10 +6,12 @@ public class GameManager : MonoBehaviour
 {
     public Movement player;
     public GameObject firstBridge;
+    public GameObject pausePanel;
     // Start is called before the first frame update
     void Start()
     {
         firstBridge.SetActive(false);
+        pausePanel.SetActive(false);
     }
 
     // Update is called once per frame
@@ -19,8 +21,12 @@ public class GameManager : MonoBehaviour
         {
             firstBridge.SetActive(true);
         }
-
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            pausePanel.SetActive(true);
+        }
     }
+    
 
    
 }

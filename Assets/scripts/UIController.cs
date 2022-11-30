@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class UIController : MonoBehaviour
 {
     [SerializeField] private GameObject helpPanel; 
+    [SerializeField] private GameObject pausePanel;
     public void OnStartButtonClick()
     {
         SceneManager.LoadScene("MainLevel");
@@ -34,5 +35,9 @@ public class UIController : MonoBehaviour
     public void OnQuitButtonClick()
     {
         Application.Quit();
+    }
+    public void OnPauseButtonClick()
+    {
+        pausePanel.SetActive(false);
     }
 }
