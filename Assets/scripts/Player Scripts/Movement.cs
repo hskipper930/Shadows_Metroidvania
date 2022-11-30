@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using TMPro;
 
 public class Movement : MonoBehaviour
 {
@@ -45,9 +46,15 @@ public class Movement : MonoBehaviour
     public float axePower = 200f;
     public int activeWeapon = 1;
     public bool isSharp = false;
+
+    [SerializeField] private TMP_Text healthText;
+    [SerializeField] private GameObject gameOverPanel;
+    private bool gameOver = false;
+
     void Start()
     {
         wallJumpAngle.Normalize();
+        healthText.text = "HP: " + playerHealth;
     }
 
     
@@ -83,6 +90,11 @@ public class Movement : MonoBehaviour
     public void TakeDamage(int amount)
     {
         playerHealth -= amount;
+        healthText.text = "HP: " + playerHealth;
+        if(playerHealth <= 0)
+        {
+            GameOver();
+        }
     }
 
     void Jump()
@@ -131,26 +143,34 @@ public class Movement : MonoBehaviour
     }
     private void Update()
     {
-        animate.SetFloat("Speed", Mathf.Abs(horizontal));
-        Flip();
-        if (Input.GetKeyDown(KeyCode.E))
+        if (!gameOver)
         {
-            Attack();
-        }
-        if(Input.GetKeyUp(KeyCode.E))
-        {
-            animate.SetBool("AxeAttack", false);
+            animate.SetFloat("Speed", Mathf.Abs(horizontal));
+            Flip();
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                Attack();
+            }
+            if (Input.GetKeyUp(KeyCode.E))
+            {
+                animate.SetBool("AxeAttack", false);
 
+            }
+            /* if(IsGrounded())
+             {
+                 rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
+             }*/
+            rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
+            Jump();
+            WallSlide();
+
+            //WallJump();
+
+            if (transform.position.y <= -50)
+            {
+                GameOver();
+            }
         }
-        /* if(IsGrounded())
-         {
-             rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
-         }*/
-        rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
-        Jump();
-        WallSlide();
-       
-        //WallJump();
     }
     void Animation()
     {
@@ -204,5 +224,11 @@ public class Movement : MonoBehaviour
             localScale.x *= -1f;
             transform.localScale = localScale;
         }
+    }
+
+    private void GameOver()
+    {
+        gameOver = true;
+        gameOverPanel.SetActive(true);
     }
 }

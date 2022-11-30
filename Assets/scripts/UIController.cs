@@ -21,6 +21,16 @@ public class UIController : MonoBehaviour
         helpPanel.SetActive(false);
     }
 
+    public void OnMenuButtonClick()
+    {
+        SceneManager.LoadScene("Frontend");
+    }
+
+    public void OnRetryButtonClick()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
     public void OnQuitButtonClick()
     {
         Application.Quit();
