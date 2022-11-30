@@ -15,6 +15,12 @@ public class BossAI : EnemyAI
         StartCoroutine("PhaseChanger");
     }
 
+    private void OnEnable()
+    {
+        currentState = State.chase;
+        StartCoroutine("PhaseChanger");
+    }
+
     protected override void Update()
     {
         base.Update();
