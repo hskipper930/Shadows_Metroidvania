@@ -47,11 +47,14 @@ public class Movement : MonoBehaviour
     public float axePower = 200f;
     private int activeWeapon = 1;
     public bool isSharp = false;
+    [SerializeField] private float axeCooldown = 1f;
+    private float fireRate;
 
     [SerializeField] private TMP_Text healthText;
     [SerializeField] private GameObject gameOverPanel;
     public Transform pitfall;
     private bool gameOver = false;
+    
 
     void Start()
     {
@@ -148,10 +151,12 @@ public class Movement : MonoBehaviour
             case 1:     //axe
                 if (axeActive == true)
                 {
+                    
                     Instantiate(axePrefab, firePoint.position, transform.rotation);
                     animate.SetBool("AxeAttack", true);
-
+                    axeActive = false;
                 }
+                
                 break;
         }
     }
@@ -163,7 +168,21 @@ public class Movement : MonoBehaviour
             Flip();
             if (Input.GetKeyDown(KeyCode.E))
             {
+
+              
+                
+                    
+                
                 Attack();
+            }
+            if(axeActive == false)
+            {
+                axeCooldown -= Time.deltaTime;
+                if (axeCooldown <= 0)
+                {
+                    axeActive = true;
+                    axeCooldown = 1f;
+                }
             }
             if (Input.GetKeyUp(KeyCode.E))
             {
@@ -191,10 +210,7 @@ public class Movement : MonoBehaviour
             playerHealth = 30;
         }
     }
-    void Animation()
-    {
-
-    }
+ 
     [SerializeField] private bool IsGrounded()
     {
         return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
