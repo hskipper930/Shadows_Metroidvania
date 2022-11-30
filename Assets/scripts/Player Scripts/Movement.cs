@@ -11,8 +11,8 @@ public class Movement : MonoBehaviour
     [SerializeField] private float speed = 7f;
     [SerializeField] private float jumpPower = 8f;
     [SerializeField] public bool isFacingRight = true;
-    public bool canJump = false;
-    public bool candoubleJump = false;
+    [SerializeField]private bool canJump = false;
+    private bool candoubleJump = false;
  
 
     public Transform firePoint;
@@ -22,7 +22,7 @@ public class Movement : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
 
    // public float wallJumpTime = .75f;
-    public float wallSlideSpeed = .3f;
+    private float wallSlideSpeed = .3f;
     // public float wallDistance = .5f;
    
     private bool isWallSliding = false;
@@ -42,10 +42,10 @@ public class Movement : MonoBehaviour
     //public CharacterController controller;
 
 
-    public int playerHealth = 30;
-    public bool axeActive = true;
+    private int playerHealth = 30;
+    private bool axeActive = true;
     public float axePower = 200f;
-    public int activeWeapon = 1;
+    private int activeWeapon = 1;
     public bool isSharp = false;
 
     [SerializeField] private TMP_Text healthText;
@@ -186,7 +186,7 @@ public class Movement : MonoBehaviour
             }
         }
 
-        if(playerHealth < 30)
+        if(playerHealth > 30)
         {
             playerHealth = 30;
         }

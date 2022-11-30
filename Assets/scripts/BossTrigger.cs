@@ -6,6 +6,7 @@ public class BossTrigger : MonoBehaviour
 {
     public Door door;
     public GameObject bossEnemy;
+    public BossAI boss;
     // Start is called before the first frame update
     void Start()
     {
@@ -33,8 +34,10 @@ public class BossTrigger : MonoBehaviour
         {
             door.roomClear = false;
             door.roomCheck();
-            //this.gameObject.SetActive(false);
             bossEnemy.SetActive(true);
+            boss.StartCoroutine("PhaseChanger");
+            this.gameObject.SetActive(false);
+            
         }
     }
 }
