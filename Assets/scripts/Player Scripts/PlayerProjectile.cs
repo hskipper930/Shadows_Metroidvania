@@ -23,7 +23,7 @@ public class PlayerProjectile : MonoBehaviour
         }
 
     }
-
+   
     // Update is called once per frame
     void Update()
     {
@@ -38,7 +38,7 @@ public class PlayerProjectile : MonoBehaviour
         }*/
 
 
-        Object.Destroy(gameObject, 1f);
+        Object.Destroy(gameObject, .5f);
     }
    
 }

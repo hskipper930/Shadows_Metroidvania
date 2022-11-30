@@ -8,11 +8,12 @@ public class Movement : MonoBehaviour
 {
     public int numLogs = 0;
     [SerializeField] private float horizontal;
-    private float speed = 8f;
-    private float jumpPower = 7f;
+    [SerializeField] private float speed = 7f;
+    [SerializeField] private float jumpPower = 8f;
     [SerializeField] public bool isFacingRight = true;
     public bool canJump = false;
     public bool candoubleJump = false;
+ 
 
     public Transform firePoint;
     public GameObject axePrefab;
@@ -49,6 +50,7 @@ public class Movement : MonoBehaviour
 
     [SerializeField] private TMP_Text healthText;
     [SerializeField] private GameObject gameOverPanel;
+    public Transform pitfall;
     private bool gameOver = false;
 
     void Start()
@@ -72,12 +74,24 @@ public class Movement : MonoBehaviour
 
         if(collision.gameObject.CompareTag("Water"))
         {
-            transform.position = spawnLocation.transform.position;
+           transform.position = pitfall.position;
+            TakeDamage(5);
         }
         if(collision.gameObject.CompareTag("Ground"))
         {
             //animate.SetBool("IsJumping", false);
         }
+        if(collision.gameObject.CompareTag("Health"))
+        {
+            playerHealth += 10;
+            healthText.text = "HP: " + playerHealth;
+            Destroy(collision.gameObject);
+        }
+        /*if(collision.gameObject.CompareTag("RespawnPoint"))
+        {
+            
+        }
+        
        /* if(collision.gameObject.CompareTag("Log"))
         {
             numLogs++;
@@ -170,6 +184,11 @@ public class Movement : MonoBehaviour
             {
                 GameOver();
             }
+        }
+
+        if(playerHealth < 30)
+        {
+            playerHealth = 30;
         }
     }
     void Animation()

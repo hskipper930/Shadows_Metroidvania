@@ -78,14 +78,12 @@ public class EnemyAI : MonoBehaviour
                 nextCheckpointIndex++;
             }
         }
-        if(collision.gameObject.CompareTag("Player"))
-        {
-            player.GetComponent<Movement>().TakeDamage(damage);
-        }
+       
 
         if(collision.gameObject.CompareTag("PlayerAxe"))
         {
             TakeDamage(2);
+            Destroy(collision);
         }
     }
 
@@ -94,6 +92,10 @@ public class EnemyAI : MonoBehaviour
         if (collision.gameObject.CompareTag("PlayerAxe"))
         {
             TakeDamage(2);
+        }
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            player.GetComponent<Movement>().TakeDamage(damage);
         }
     }
 

@@ -32,7 +32,7 @@ public class Obstacle : MonoBehaviour
             Destroy(gameObject, .2f);
 
         }
-        if(this.gameObject.CompareTag("Boulder") && collision.gameObject.CompareTag("PlayerAxe") && player.isSharp == true)
+        else if(this.gameObject.CompareTag("Boulder") && collision.gameObject.CompareTag("PlayerAxe") && player.isSharp == true)
         {
             Destroy(gameObject);
             Debug.Log("Boulder down");
