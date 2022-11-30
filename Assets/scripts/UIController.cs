@@ -36,8 +36,5 @@ public class UIController : MonoBehaviour
     {
         Application.Quit();
     }
-    public void OnPauseButtonClick()
-    {
-        pausePanel.SetActive(false);
-    }
+    
 }
