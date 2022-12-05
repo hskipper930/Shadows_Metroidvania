@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/* Hunter Skipper & Steven Thompson
+ * SGD 285.2144
+ * 12/5/2022 */
 public class EnemyAI : MonoBehaviour
 {
     protected enum State { patrol, chase, shooting}

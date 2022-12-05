@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/* Hunter Skipper
+ * SGD 285.2144
+ * 12/5/2022 */
 public class BossAI : EnemyAI
 {
     [SerializeField] private GameObject projectile;

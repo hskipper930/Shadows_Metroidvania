@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/* Steven Thompson
+ * SGD 285.2144
+ * 12/5/2022 */
 public class KeyDoor : MonoBehaviour
 {
     public Door door;

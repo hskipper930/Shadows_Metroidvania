@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using TMPro;
-
+/* Steven Thompson & Hunter Skipper
+ * SGD 285.2144
+ * 12/5/2022 */
 public class Movement : MonoBehaviour
 {
     public int numLogs = 0;
