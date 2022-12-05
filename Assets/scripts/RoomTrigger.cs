@@ -5,6 +5,7 @@ using UnityEngine;
 public class RoomTrigger : MonoBehaviour
 {
     public Door door;
+   
     // Start is called before the first frame update
     void Start()
     {
@@ -30,9 +31,11 @@ public class RoomTrigger : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            
             door.roomClear = false;
             door.roomCheck();
             //this.gameObject.SetActive(false);
         }
+        
     }
 }

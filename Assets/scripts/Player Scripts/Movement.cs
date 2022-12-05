@@ -54,6 +54,7 @@ public class Movement : MonoBehaviour
     [SerializeField] private GameObject gameOverPanel;
     public Transform pitfall;
     private bool gameOver = false;
+    public bool hasKey = false;
     
 
     void Start()
@@ -90,6 +91,17 @@ public class Movement : MonoBehaviour
             healthText.text = "HP: " + playerHealth;
             Destroy(collision.gameObject);
         }
+        if (collision.gameObject.CompareTag("Key"))
+        {
+            hasKey = true;
+            Destroy(collision.gameObject);
+        }
+        if (collision.gameObject.CompareTag("AxeUpgrade"))
+        {
+            isSharp = true;
+            Destroy(collision.gameObject);
+        }
+
         /*if(collision.gameObject.CompareTag("RespawnPoint"))
         {
             
@@ -101,7 +113,7 @@ public class Movement : MonoBehaviour
             Debug.Log("Logs picked up: " + numLogs);
             Destroy(collision.gameObject);
         }*/
-        
+
     }
     
     public void TakeDamage(int amount)
