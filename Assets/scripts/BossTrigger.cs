@@ -7,6 +7,7 @@ public class BossTrigger : MonoBehaviour
     public Door door;
     public GameObject bossEnemy;
     public BossAI boss;
+    [SerializeField] private AudioManager audio;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +37,7 @@ public class BossTrigger : MonoBehaviour
             door.roomCheck();
             bossEnemy.SetActive(true);
             boss.StartCoroutine("PhaseChanger");
+            audio.PlayBossTheme();
             this.gameObject.SetActive(false);
             
         }

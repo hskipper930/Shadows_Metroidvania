@@ -55,6 +55,8 @@ public class Movement : MonoBehaviour
     public Transform pitfall;
     private bool gameOver = false;
     public bool hasKey = false;
+
+    [SerializeField] private AudioManager audio;
     
 
     void Start()
@@ -118,6 +120,7 @@ public class Movement : MonoBehaviour
     
     public void TakeDamage(int amount)
     {
+        audio.PlayPlayerDamagedSound();
         playerHealth -= amount;
         healthText.text = "HP: " + playerHealth;
         if(playerHealth <= 0)
@@ -163,7 +166,7 @@ public class Movement : MonoBehaviour
             case 1:     //axe
                 if (axeActive == true)
                 {
-                    
+                    audio.PlayAxeSound();
                     Instantiate(axePrefab, firePoint.position, transform.rotation);
                     animate.SetBool("AxeAttack", true);
                     axeActive = false;

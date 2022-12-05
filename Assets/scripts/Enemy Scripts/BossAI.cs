@@ -63,4 +63,16 @@ public class BossAI : EnemyAI
             yield return cooldown;
         }
     }
+
+    protected override void TakeDamage(int amount)
+    {
+        audio.PlayEnemyDamagedSound();
+        health -= amount;
+        if (health <= 0)
+        {
+            door.numEnemies--;
+            audio.PlayMainTheme();
+            Destroy(gameObject);
+        }
+    }
 }
