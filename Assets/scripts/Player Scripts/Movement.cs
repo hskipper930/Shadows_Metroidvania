@@ -232,6 +232,7 @@ public class Movement : MonoBehaviour
         if(playerHealth > 30)
         {
             playerHealth = 30;
+            healthText.text = "HP: " + playerHealth.ToString();
         }
     }
  

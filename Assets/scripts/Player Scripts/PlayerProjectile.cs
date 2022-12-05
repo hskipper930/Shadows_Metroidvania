@@ -18,6 +18,7 @@ public class PlayerProjectile : MonoBehaviour
         if (Player.GetComponent<Movement>().isFacingRight == true)
         {
             rb.velocity = transform.right * speed;
+            
         }
         else if (Player.GetComponent<Movement>().isFacingRight == false)
         {
