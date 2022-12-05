@@ -43,6 +43,7 @@ public class Movement : MonoBehaviour
 
 
     private int playerHealth = 30;
+    private int maxHP;
     private bool axeActive = true;
     public float axePower = 200f;
     private int activeWeapon = 1;
@@ -61,6 +62,7 @@ public class Movement : MonoBehaviour
 
     void Start()
     {
+        maxHP = playerHealth;
         wallJumpAngle.Normalize();
         healthText.text = "HP: " + playerHealth;
     }
@@ -90,6 +92,10 @@ public class Movement : MonoBehaviour
         if(collision.gameObject.CompareTag("Health"))
         {
             playerHealth += 10;
+            if(playerHealth > maxHP)
+            {
+                playerHealth = maxHP;
+            }
             healthText.text = "HP: " + playerHealth;
             Destroy(collision.gameObject);
         }

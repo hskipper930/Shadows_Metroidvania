@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public Movement player;
     public GameObject firstBridge;
     public GameObject pausePanel;
+    [SerializeField] private GameObject logsText;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +22,7 @@ public class GameManager : MonoBehaviour
         if(player.numLogs >= 3)
         {
             firstBridge.SetActive(true);
+            logsText.SetActive(false);
         }
         if(Input.GetKeyDown(KeyCode.Escape))
         {
