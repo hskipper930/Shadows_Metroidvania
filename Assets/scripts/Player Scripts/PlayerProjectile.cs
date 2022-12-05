@@ -16,7 +16,6 @@ public class PlayerProjectile : MonoBehaviour
         if (Player.GetComponent<Movement>().isFacingRight == true)
         {
             rb.velocity = transform.right * speed;
-            
         }
         else if (Player.GetComponent<Movement>().isFacingRight == false)
         {
@@ -41,12 +40,5 @@ public class PlayerProjectile : MonoBehaviour
 
         Object.Destroy(gameObject, .5f);
     }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            Object.Destroy(gameObject);
-        }
-    }
-
+   
 }
