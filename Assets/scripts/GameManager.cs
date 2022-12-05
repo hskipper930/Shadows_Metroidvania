@@ -11,11 +11,13 @@ public class GameManager : MonoBehaviour
     public GameObject firstBridge;
     public GameObject pausePanel;
     [SerializeField] private GameObject logsText;
+    public GameObject winPanel;
     // Start is called before the first frame update
     void Start()
     {
         firstBridge.SetActive(false);
         pausePanel.SetActive(false);
+        winPanel.SetActive(false);
     }
 
     // Update is called once per frame
@@ -40,10 +42,17 @@ public class GameManager : MonoBehaviour
     public void OnMenuButtonClick()
     {
         SceneManager.LoadScene("Frontend");
+        Time.timeScale = 1;
+    }
+    public void GameWin()
+    {
+        winPanel.SetActive(true);
+        Time.timeScale = 0;
     }
     public void OnRetryButtonClick()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Time.timeScale = 1;
     }
 
     public void OnQuitButtonClick()

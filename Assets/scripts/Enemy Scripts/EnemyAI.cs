@@ -20,6 +20,8 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] protected int health;
     [SerializeField] private int damage;
     protected AudioManager audio;
+    [SerializeField] protected bool finalBoss = false;
+    [SerializeField] protected GameManager gameManager;
 
     public Door door;
 
@@ -111,7 +113,11 @@ public class EnemyAI : MonoBehaviour
         if(health <= 0)
         {
             door.numEnemies--;
-            
+            if(finalBoss == true)
+            {
+                gameManager.GameWin();
+                Destroy(gameObject);
+            }
             Destroy(gameObject);
         }
     }

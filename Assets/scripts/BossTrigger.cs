@@ -38,8 +38,8 @@ public class BossTrigger : MonoBehaviour
             door.roomClear = false;
             door.roomCheck();
             bossEnemy.SetActive(true);
-            boss.StartCoroutine("PhaseChanger");
             audio.PlayBossTheme();
+            boss.StartCoroutine("PhaseChanger");
             this.gameObject.SetActive(false);
             
         }
