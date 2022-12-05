@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/* Hunter Skipper
+ * SGD 285.2144
+ * 12/5/2022 */
 public class BossAI : EnemyAI
 {
     [SerializeField] private GameObject projectile;
@@ -61,6 +63,18 @@ public class BossAI : EnemyAI
                 projectileInstance.targetPosition = playerTransform.position;
             }
             yield return cooldown;
+        }
+    }
+
+    protected override void TakeDamage(int amount)
+    {
+        audio.PlayEnemyDamagedSound();
+        health -= amount;
+        if (health <= 0)
+        {
+            door.numEnemies--;
+            audio.PlayMainTheme();
+            Destroy(gameObject);
         }
     }
 }

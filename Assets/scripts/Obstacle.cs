@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/* Steven Thompson & Hunter Skipper
+ * SGD 285.2144
+ * 12/5/2022 */
 public class Obstacle : MonoBehaviour
 {
     public Movement player;
     public GameObject logPickup;
     public Transform pickupSpot;
+    [SerializeField] private TMPro.TMP_Text logsText;
 
 
     // Start is called before the first frame update
@@ -27,6 +30,7 @@ public class Obstacle : MonoBehaviour
         {
 
             player.numLogs++;
+            logsText.text = "Logs Collected: " + player.numLogs + "/3";
             Debug.Log("Logs picked up: " + player.numLogs);
             //Instantiate(logPickup,pickupSpot);
             Destroy(gameObject, .2f);

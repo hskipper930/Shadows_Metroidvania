@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using TMPro;
-
+/* Steven Thompson & Hunter Skipper
+ * SGD 285.2144
+ * 12/5/2022 */
 public class Movement : MonoBehaviour
 {
     public int numLogs = 0;
@@ -43,6 +45,7 @@ public class Movement : MonoBehaviour
 
 
     private int playerHealth = 30;
+    private int maxHP;
     private bool axeActive = true;
     public float axePower = 200f;
     private int activeWeapon = 1;
@@ -55,10 +58,13 @@ public class Movement : MonoBehaviour
     public Transform pitfall;
     private bool gameOver = false;
     public bool hasKey = false;
+
+    [SerializeField] private AudioManager audio;
     
 
     void Start()
     {
+        maxHP = playerHealth;
         wallJumpAngle.Normalize();
         healthText.text = "HP: " + playerHealth;
     }
@@ -88,6 +94,10 @@ public class Movement : MonoBehaviour
         if(collision.gameObject.CompareTag("Health"))
         {
             playerHealth += 10;
+            if(playerHealth > maxHP)
+            {
+                playerHealth = maxHP;
+            }
             healthText.text = "HP: " + playerHealth;
             Destroy(collision.gameObject);
         }
@@ -118,6 +128,7 @@ public class Movement : MonoBehaviour
     
     public void TakeDamage(int amount)
     {
+        audio.PlayPlayerDamagedSound();
         playerHealth -= amount;
         healthText.text = "HP: " + playerHealth;
         if(playerHealth <= 0)
@@ -163,7 +174,7 @@ public class Movement : MonoBehaviour
             case 1:     //axe
                 if (axeActive == true)
                 {
-                    
+                    audio.PlayAxeSound();
                     Instantiate(axePrefab, firePoint.position, transform.rotation);
                     animate.SetBool("AxeAttack", true);
                     axeActive = false;

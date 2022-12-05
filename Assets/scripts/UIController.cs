@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+/* Hunter Skipper
+ * SGD 285.2144
+ * 12/5/2022 */
 public class UIController : MonoBehaviour
 {
     [SerializeField] private GameObject helpPanel; 

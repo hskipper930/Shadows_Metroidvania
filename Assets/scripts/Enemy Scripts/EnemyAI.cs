@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/* Hunter Skipper & Steven Thompson
+ * SGD 285.2144
+ * 12/5/2022 */
 public class EnemyAI : MonoBehaviour
 {
     protected enum State { patrol, chase, shooting}
@@ -14,8 +17,9 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] protected Transform[] checkpoints;
     protected int nextCheckpointIndex = 0;
     protected Animator animator;
-    [SerializeField] private int health;
+    [SerializeField] protected int health;
     [SerializeField] private int damage;
+    protected AudioManager audio;
 
     public Door door;
 
@@ -25,6 +29,7 @@ public class EnemyAI : MonoBehaviour
         animator = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player");
         playerTransform = player.transform;
+        audio = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
     }
 
     protected virtual void Update()
@@ -99,8 +104,9 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    private void TakeDamage(int amount)
+    protected virtual void TakeDamage(int amount)
     {
+        audio.PlayEnemyDamagedSound();
         health -= amount;
         if(health <= 0)
         {
