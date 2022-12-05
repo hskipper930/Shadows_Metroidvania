@@ -96,7 +96,8 @@ public class Movement : MonoBehaviour
             playerHealth += 10;
             if(playerHealth > maxHP)
             {
-                playerHealth = maxHP;
+                playerHealth = 30;
+                healthText.text = "HP: " + playerHealth.ToString();
             }
             healthText.text = "HP: " + playerHealth;
             Destroy(collision.gameObject);
